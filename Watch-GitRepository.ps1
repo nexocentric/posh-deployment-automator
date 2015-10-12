@@ -88,13 +88,14 @@ while ($true) {
 		$msbuildFilePath = .\Find-MsBuildFileForRepository -Directory $releaseDirectory
 		Write-Verbose -Message "Building using [${msbuildFilePath}]"
 
-		# $buildSucceeded = Invoke-MsBuild -Path ($msbuildFilePath)  [System.IO.Path]::GetPathRoot($msbuildFilePath)
-		$buildSucceeded = Invoke-MsBuild -Path $msbuildFilePath.ToString() -BuildLogDirectoryPath $releaseDirectory
-		if ($buildSucceeded) {
-			Write-Verbose -Message "Build Succeeded run New-InstallSuccessFlag this will put a new markdown file in a location where another program can see the success"
-		}
-		else {
-			Write-Verbose -Message ("Build failed... please check error log...[" + ($msbuildFilePath + ".log") + "]")
+		if ($BuildProject) {
+			$buildSucceeded = Invoke-MsBuild -Path $msbuildFilePath.ToString() -BuildLogDirectoryPath $releaseDirectory
+			if ($buildSucceeded) {
+				Write-Verbose -Message "Build Succeeded run New-InstallSuccessFlag this will put a new markdown file in a location where another program can see the success"
+			}
+			else {
+				Write-Verbose -Message ("Build failed... please check error log...[" + ($msbuildFilePath + ".log") + "]")
+			}
 		}
 	}
 
