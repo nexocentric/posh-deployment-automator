@@ -115,6 +115,6 @@ while ($true) {
 		}
 	}
 
-	Write-Verbose -Message "Sleeping"
+	Write-Verbose -Message "Sleeping..."
 	Start-Sleep -Seconds $SleepDuration
 }
