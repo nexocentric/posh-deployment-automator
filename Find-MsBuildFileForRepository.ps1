@@ -15,9 +15,10 @@ foreach ($file in $repositoryFiles) {
 	Write-Verbose -Message ($file.Name)
 	if (($file.Name.ToString() -imatch $msBuildFileExtensionPattern)) {
 		Write-Verbose -Message ("Found a match [" + $file.Name + "] with a path of [" + $file.FullName + "].")
-		$buildFilePath = $file.FullName.ToString()
+		$buildFilePath = $file | Select-Object -ExpandProperty FullName
 	}
+    
+    Write-Output -InputObject $buildFilePath
 }
 
-Write-Output -InputObject $buildFilePath
 # H:\repositories\temp-install\auto-deploy-test-0.9.0
