@@ -19,9 +19,12 @@ if ($previousDirectory -ne $RepositoryDirectory) {
 }
 
 git fetch | Out-Null
-$changesOnRemote = [string]::IsNullOrEmpty((git diff HEAD origin/master))
+$changesOnRemote = ![string]::IsNullOrEmpty((git diff HEAD origin/master))
 
 Write-Verbose -Message ("Local repository behind remote? [${changesOnRemote}]")
+if (!changesOnRemote) {
+    git pull origin master | Out-Null
+}
 
 git fetch --tags | Out-Null
 $codeReleases = git tag -l --sort=version:refname
