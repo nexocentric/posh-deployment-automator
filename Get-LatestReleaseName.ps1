@@ -18,6 +18,7 @@ if ($previousDirectory -ne $RepositoryDirectory) {
 	Set-Location -Path $RepositoryDirectory
 }
 
+git fetch | Out-Null
 $changesOnRemote = [string]::IsNullOrEmpty((git diff HEAD origin/master))
 
 Write-Verbose -Message ("Local repository behind remote? [${changesOnRemote}]")
