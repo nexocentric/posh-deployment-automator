@@ -22,7 +22,7 @@ git fetch | Out-Null
 $changesOnRemote = ![string]::IsNullOrEmpty((git diff HEAD origin/master))
 
 Write-Verbose -Message ("Local repository behind remote? [${changesOnRemote}]")
-if (!$changesOnRemote) {
+if ($changesOnRemote) {
     git pull origin master | Out-Null
 }
 
