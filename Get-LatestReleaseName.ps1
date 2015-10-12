@@ -19,7 +19,7 @@ if ($previousDirectory -ne $RepositoryDirectory) {
 }
 
 git fetch --tags | Out-Null
-$codeReleases = git tag -l $v* --sort=version:refname
+$codeReleases = git tag -l --sort=version:refname
 
 if ($codeReleases.Length -gt 1) {
 	$latestRelease = $codeReleases[$codeReleases.Length - 1]
