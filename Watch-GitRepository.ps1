@@ -104,7 +104,7 @@ while ($true) {
 
 		Write-Verbose -Message "Building using [${msbuildFilePath}]"
 
-		if ($BuildProject -and ![string]:IsNullOrEmpty($msbuildFilePath)) {
+		if ($BuildProject -and ![string]::IsNullOrEmpty($msbuildFilePath)) {
 			$buildSucceeded = Invoke-MsBuild -Path $msbuildFilePath.ToString() -BuildLogDirectoryPath $releaseDirectory
 			if ($buildSucceeded) {
 				Write-Verbose -Message "Build Succeeded run New-InstallSuccessFlag this will put a new markdown file in a location where another program can see the success"
