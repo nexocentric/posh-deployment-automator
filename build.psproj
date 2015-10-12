@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Tests" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<PowerShellExe Condition=" '$(PowerShellExe)'=='' ">$(WINDIR)\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
+	</PropertyGroup>
+
+	<Target Name="Tests">
+		<Exec Command="$(PowerShellExe) -NonInteractive -ExecutionPolicy ByPass -Command &quot;&amp;{if((Invoke-Pester -PassThru).FailedCount -gt 0) {exit 1}}&quot;">
+			<Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+		</Exec>
+		<Message Importance="high" Text="$(ErrorCode)"/>
+	</Target>
+</Project>
