@@ -18,6 +18,10 @@ if ($previousDirectory -ne $RepositoryDirectory) {
 	Set-Location -Path $RepositoryDirectory
 }
 
+$currentDiff = git diff HEAD origin/master
+
+Write-Verbose -Message ("Here is the difference between the two repositories. [${currentDiff}]")
+
 git fetch --tags | Out-Null
 $codeReleases = git tag -l --sort=version:refname
 
