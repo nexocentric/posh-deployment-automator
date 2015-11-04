@@ -3,11 +3,11 @@ param (
 	[ValidateNotNullOrEmpty()]
 	[parameter(Mandatory=$true)]
 	[ValidateScript({(Test-Path $_ )-eq $true})]
-	[string]$Directory
+	[string]$SearchDirectory
 )
 $msBuildFileExtensionPattern = "^.*\..*proj$"
-Write-Verbose -Message "Recursively Scanning for files matching patten [${msBuildFileExtensionPattern}] in [${Directory}]"
-$repositoryFiles = Get-ChildItem -Path $Directory -Recurse
+Write-Verbose -Message "Recursively Scanning for files matching patten [${msBuildFileExtensionPattern}] in [${SearchDirectory}]"
+$repositoryFiles = Get-ChildItem -Path $SearchDirectory -Recurse
 $buildFilePath = ""
 
 Write-Verbose -Message ("Checking [" + $repositoryFiles.Length + "] possible files for MSBuild file.")
