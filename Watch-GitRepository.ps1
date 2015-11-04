@@ -80,7 +80,7 @@ while ($true) {
 	}
 
 	$releaseDirectory = .\Install-LatestRelease -RemoteRepositoryAddress $RemoteRepositoryAddress -ReleaseName $releaseName -InstallDirectory $InstallDirectory
-	$releaseDirectory | gm
+	$releaseDirectory[1]
 	
 	#google figure out a way to continue attempting to run a build
 	#if a build fails...
