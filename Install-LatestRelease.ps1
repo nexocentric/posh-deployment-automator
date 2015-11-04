@@ -34,7 +34,7 @@ Write-Verbose -Message ("Attempting to download file to the following location [
 (New-Object Net.WebClient).DownloadFile(
 	$releaseArchiveAddress,
 	$fullFileName #full file path required!
-)
+) | Out-Null
 
 Set-Location -Path $InstallDirectory
 $shell = new-object -com shell.application
