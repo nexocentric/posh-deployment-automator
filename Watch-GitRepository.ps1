@@ -80,42 +80,43 @@ while ($true) {
 	}
 
 	$releaseDirectory = .\Install-LatestRelease -RemoteRepositoryAddress $RemoteRepositoryAddress -ReleaseName $releaseName -InstallDirectory $InstallDirectory
+	$releaseDirectory | gm
 	
 	#google figure out a way to continue attempting to run a build
 	#if a build fails...
 	#specify a flag in Watch-GitRepository called $BuildProject and if it is on try to create the build and notify on failure
-	if (![string]::IsNullOrEmpty($releaseDirectory)) {
-		Write-Verbose -Message "Installing newest release"
+	# if (![string]::IsNullOrEmpty($releaseDirectory)) {
+	# 	Write-Verbose -Message "Installing newest release"
 		
-		Write-Verbose -Message "Running Find-MsBuildFileForRepository in [${releaseDirectory}]"
+	# 	Write-Verbose -Message "Running Find-MsBuildFileForRepository in [${releaseDirectory}]"
 		
-		# $releaseDirectory
+	# 	# $releaseDirectory
 
-		$msbuildFilePath = .\Find-MsBuildFileForRepository -SearchDirectory $releaseDirectory
+	# 	$msbuildFilePath = .\Find-MsBuildFileForRepository -SearchDirectory $releaseDirectory
 
-		if (![string]::IsNullOrEmpty($MSBuildFileName) -and $msbuildFilePath.Count) {
-			foreach ($msbuildFile in $msbuildFilePath) {
-				if ($msbuildFile -match $MSBuildFileName) {
-					$msbuildFilePath = $msbuildFile
-				}
-			}
-		}
-		else {
-			$msbuildFilePath = @(,$msbuildFilePath)[0]
-		}
+	# 	if (![string]::IsNullOrEmpty($MSBuildFileName) -and $msbuildFilePath.Count) {
+	# 		foreach ($msbuildFile in $msbuildFilePath) {
+	# 			if ($msbuildFile -match $MSBuildFileName) {
+	# 				$msbuildFilePath = $msbuildFile
+	# 			}
+	# 		}
+	# 	}
+	# 	else {
+	# 		$msbuildFilePath = @(,$msbuildFilePath)[0]
+	# 	}
 
-		Write-Verbose -Message "Building using [${msbuildFilePath}]"
+	# 	Write-Verbose -Message "Building using [${msbuildFilePath}]"
 
-		if ($BuildProject -and ![string]::IsNullOrEmpty($msbuildFilePath)) {
-			$buildSucceeded = Invoke-MsBuild -Path $msbuildFilePath.ToString() -BuildLogDirectoryPath $releaseDirectory
-			if ($buildSucceeded) {
-				Write-Verbose -Message "Build Succeeded run New-InstallSuccessFlag this will put a new markdown file in a location where another program can see the success"
-			}
-			else {
-				Write-Verbose -Message ("Build failed... please check error log...[" + ($msbuildFilePath + ".log") + "]")
-			}
-		}
-	}
+	# 	if ($BuildProject -and ![string]::IsNullOrEmpty($msbuildFilePath)) {
+	# 		$buildSucceeded = Invoke-MsBuild -Path $msbuildFilePath.ToString() -BuildLogDirectoryPath $releaseDirectory
+	# 		if ($buildSucceeded) {
+	# 			Write-Verbose -Message "Build Succeeded run New-InstallSuccessFlag this will put a new markdown file in a location where another program can see the success"
+	# 		}
+	# 		else {
+	# 			Write-Verbose -Message ("Build failed... please check error log...[" + ($msbuildFilePath + ".log") + "]")
+	# 		}
+	# 	}
+	# }
 
 	Write-Verbose -Message "Sleeping..."
 	Start-Sleep -Seconds $SleepDuration
