@@ -46,7 +46,7 @@ foreach($item in $zip.items())
 
 Remove-Item -Path $fullFileName
 Set-Location -Path $previousLocation
-$finalDestination = Join-Path -Path $InstallDirectory -ChildPath $installedFolder
+Join-Path -Path $InstallDirectory -ChildPath $installedFolder
 # return ($InstallDirectory + "\" + $installedFolder)
 
 # VERBOSE: Installed in [auto-deploy-test-0.7.0]
