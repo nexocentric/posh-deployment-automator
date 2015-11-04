@@ -89,7 +89,7 @@ while ($true) {
 		
 		Write-Verbose -Message "Running Find-MsBuildFileForRepository in [${releaseDirectory}]"
 		
-		$releaseDirectory = Resolve-Path -Path $releaseDirectory -Relative
+		$releaseDirectory = $releaseDirectory.Trim()
 
 		$msbuildFilePath = .\Find-MsBuildFileForRepository -Directory $releaseDirectory
 
