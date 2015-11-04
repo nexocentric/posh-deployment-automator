@@ -89,6 +89,8 @@ while ($true) {
 		
 		Write-Verbose -Message "Running Find-MsBuildFileForRepository in [${releaseDirectory}]"
 		
+		$releaseDirectory = Resolve-Path -Path $releaseDirectory -Relative
+
 		$msbuildFilePath = .\Find-MsBuildFileForRepository -Directory $releaseDirectory
 
 		if (![string]::IsNullOrEmpty($MSBuildFileName) -and $msbuildFilePath.Count) {
